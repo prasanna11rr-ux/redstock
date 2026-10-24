@@ -474,6 +474,105 @@
       #reportsSection .section-title-row { align-items: flex-start; flex-direction: column; }
     }
 
+
+
+    /* Final NKOCET red, yellow and light-beige theme */
+    :root {
+      --red: #a71930;
+      --yellow: #ffda63;
+      --bg: #fbf5eb;
+      --text: #29251f;
+      --muted: #756b60;
+      --white: #fbf5eb;
+      --border: #e5d4bf;
+      --navy: #482532;
+      --soft-red: #f8e7e5;
+    }
+    body { background: var(--bg); color: var(--text); }
+    header {
+      background: #fbf5eb;
+      color: var(--navy);
+      border-top: 8px solid var(--red);
+      border-bottom: 1px solid var(--border);
+    }
+    .brand img { background: #f8eedf; border-color: var(--border); }
+    .menu-toggle { color: var(--navy); background: #f8eedf; border-color: var(--border); }
+    .card, .stat, .feature-card, #scannerSection, #reportsSection,
+    #inventorySection, #scanStatsSection, #scannedProductCard, #pcReportForm,
+    .side-menu, footer {
+      background-color: #fbf5eb;
+      border-color: var(--border);
+    }
+    .feature-card { background: #fff9f0; color: var(--navy); }
+    .feature-icon { background: #f7e9d5; }
+    .feature-card:nth-child(2) .feature-icon { background: #f8e2e2; }
+    .feature-card:nth-child(3) .feature-icon { background: #ffedb5; }
+    .menu-head { background: #f5e9d8; border-color: var(--border); }
+    .menu-close, .secondary { background: #f1e5d5; color: var(--navy); }
+    .menu-links button:hover { background: #f4e8d8; }
+    .primary { background: var(--red); color: #fffaf2; }
+    .yellow { background: var(--yellow); color: #38230e; }
+    #scannerHeading, #scannedProductCard h2, .report-sheet-title,
+    #reportsSection .section-title-row h2, h1 { color: var(--navy); }
+    #scannedProductCard, #pcReportForm { background: #f8efe2; }
+    .detail-item { background: #fffaf2; border-color: var(--border); }
+    #qrOutput { background: #fffaf2; }
+    footer { border-top: 2px solid var(--red); }
+    .site-footer { background: #fbf5eb; color: var(--muted); }
+    input, select, textarea { background-color: #fffaf2; border-color: var(--border); color: var(--text); }
+    .menu-overlay { background: rgba(67, 27, 39, .48); }
+
+    /* Center the college logo above the website title */
+    header {
+      min-height: 0;
+      padding: 18px 70px 20px;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .header-brand-wrap {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-align: center;
+    }
+    .brand img {
+      display: block;
+      width: 68px;
+      height: 68px;
+      object-fit: contain;
+      border-radius: 50%;
+      background: #fbf5eb;
+      padding: 4px;
+    }
+    .brand h1 { margin: 0; line-height: 1.2; }
+    .brand p { margin-top: 5px; }
+    .header-actions {
+      position: static;
+      transform: none;
+      justify-content: center;
+      width: 100%;
+    }
+    .menu-toggle {
+      position: absolute;
+      left: 18px;
+      top: 22px;
+      transform: none;
+    }
+    @media (max-width: 520px) {
+      header { padding: 16px 58px 18px; }
+      .brand img { width: 58px; height: 58px; }
+      .brand h1 { font-size: clamp(18px, 5vw, 23px); }
+      .header-actions { flex-wrap: wrap; }
+      #userEmail { max-width: 100%; text-align: center; }
+    }
   </style>
 </head>
 
