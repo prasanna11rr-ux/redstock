@@ -1119,7 +1119,7 @@
       const nameCell = addCell(item.name || "");
       nameCell.title = item.description || "";
       addCell(item.quantity ?? "");
-      addCell(item.location || "");
+      addCell(productLocationOf(item));
       addCell(item.purchaseDate || "");
 
       const conditionCell = addCell("");
@@ -1211,7 +1211,7 @@
     $("formHeading").textContent = "Edit Product";
     $("productName").value = item.name || "";
     $("quantity").value = item.quantity ?? 1;
-    $("productLocation").value = item.location || "";
+    $("productLocation").value = productLocationOf(item);
     $("purchaseDate").value = item.purchaseDate || "";
     $("condition").value = item.condition || "Good";
     $("description").value = item.description || "";
@@ -1262,7 +1262,7 @@
       id: item.id,
       name: item.name,
       quantity: item.quantity,
-      location: item.location || "",
+      location: productLocationOf(item),
       condition: item.condition
     });
 
@@ -1330,7 +1330,7 @@
       $("scanName").textContent = safeText(item.name);
       $("scanId").textContent = item.id;
       $("scanQuantity").textContent = safeText(item.quantity);
-      $("scanLocation").textContent = safeText(item.location || "Not specified");
+      $("scanLocation").textContent = safeText(productLocationOf(item) || "Not specified — edit this product in Inventory to add its location");
       $("scanCondition").textContent = safeText(item.condition);
       $("scanPurchaseDate").textContent = safeText(item.purchaseDate);
       $("scanSeller").textContent = safeText(item.seller);
