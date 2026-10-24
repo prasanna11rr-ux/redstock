@@ -680,6 +680,7 @@
       <div class="detail-item"><span>Product Name</span><strong id="scanName"></strong></div>
       <div class="detail-item"><span>Product ID</span><strong id="scanId"></strong></div>
       <div class="detail-item"><span>Quantity</span><strong id="scanQuantity"></strong></div>
+      <div class="detail-item"><span>Product Location</span><strong id="scanLocation"></strong></div>
       <div class="detail-item"><span>Condition</span><strong id="scanCondition"></strong></div>
       <div class="detail-item"><span>Purchase Date</span><strong id="scanPurchaseDate"></strong></div>
       <div class="detail-item"><span>Seller</span><strong id="scanSeller"></strong></div>
@@ -687,15 +688,6 @@
         <span>Description</span><strong id="scanDescription"></strong>
       </div>
     </div>
-    <button class="secondary full" id="showScannedQrBtn" type="button">Show Product QR Code</button>
-  </section>
-
-  <section id="qrPanel" class="hidden">
-    <hr class="section-divider">
-    <h2>Product QR Code</h2>
-    <p id="qrProductLabel" class="muted"></p>
-    <div id="qrOutput"></div>
-    <button id="downloadQrBtn" type="button" class="secondary full">Download QR Code</button>
   </section>
   </section>
 
@@ -709,6 +701,10 @@
 
         <label for="quantity">Quantity *</label>
         <input id="quantity" type="number" min="1" step="1" required>
+
+        <label for="productLocation">Product Location *</label>
+        <input id="productLocation" maxlength="160" required
+          placeholder="e.g. Lab 2, Rack A, Shelf 3">
 
         <label for="purchaseDate">Purchase Date *</label>
         <input id="purchaseDate" type="date" required>
@@ -739,7 +735,7 @@
     <section class="card dashboard-section" id="inventorySection">
       <h2>Inventory Records</h2>
       <div class="table-tools">
-        <input id="searchInput" placeholder="Search name, seller, description, condition...">
+        <input id="searchInput" placeholder="Search name, location, seller, description, condition...">
         <button class="yellow" id="exportBtn" type="button">Export CSV</button>
       </div>
 
@@ -749,15 +745,23 @@
         <table>
           <thead>
             <tr>
-              <th>Product</th><th>Qty</th><th>Purchase Date</th>
+              <th>Product</th><th>Qty</th><th>Location</th><th>Purchase Date</th>
               <th>Condition</th><th>Seller</th><th>Actions</th>
             </tr>
           </thead>
           <tbody id="inventoryBody">
-            <tr><td colspan="6">Sign in to load inventory.</td></tr>
+            <tr><td colspan="7">Sign in to load inventory.</td></tr>
           </tbody>
         </table>
       </div>
+
+      <section id="qrPanel" class="hidden card" aria-live="polite">
+        <hr class="section-divider">
+        <h2>Product QR Code</h2>
+        <p id="qrProductLabel" class="muted"></p>
+        <div id="qrOutput"></div>
+        <button id="downloadQrBtn" type="button" class="secondary full">Download QR Code</button>
+      </section>
     </section>
   </div>
 
@@ -1083,7 +1087,7 @@
     const query = $("searchInput").value.trim().toLowerCase();
 
     const filtered = inventory.filter(item => [
-      item.name, item.description, item.seller, item.condition,
+      item.name, item.location, item.description, item.seller, item.condition,
       item.purchaseDate, item.quantity
     ].some(value => String(value ?? "").toLowerCase().includes(query)));
 
@@ -1093,7 +1097,7 @@
     if (!filtered.length) {
       const row = document.createElement("tr");
       const cell = document.createElement("td");
-      cell.colSpan = 6;
+      cell.colSpan = 7;
       cell.textContent = inventory.length
         ? "No matching products found."
         : "No inventory records yet.";
@@ -1115,6 +1119,7 @@
       const nameCell = addCell(item.name || "");
       nameCell.title = item.description || "";
       addCell(item.quantity ?? "");
+      addCell(item.location || "");
       addCell(item.purchaseDate || "");
 
       const conditionCell = addCell("");
@@ -1162,15 +1167,17 @@
 
     const name = $("productName").value.trim();
     const quantity = Number($("quantity").value);
+    const location = $("productLocation").value.trim();
 
-    if (!name || !Number.isSafeInteger(quantity) || quantity < 1) {
-      showMessage("appMessage", "Enter a product name and valid quantity.", true);
+    if (!name || !location || !Number.isSafeInteger(quantity) || quantity < 1) {
+      showMessage("appMessage", "Enter a product name, location, and valid quantity.", true);
       return;
     }
 
     const product = {
       name,
       quantity,
+      location,
       purchaseDate: $("purchaseDate").value,
       condition: $("condition").value,
       description: $("description").value.trim(),
@@ -1204,6 +1211,7 @@
     $("formHeading").textContent = "Edit Product";
     $("productName").value = item.name || "";
     $("quantity").value = item.quantity ?? 1;
+    $("productLocation").value = item.location || "";
     $("purchaseDate").value = item.purchaseDate || "";
     $("condition").value = item.condition || "Good";
     $("description").value = item.description || "";
@@ -1254,6 +1262,7 @@
       id: item.id,
       name: item.name,
       quantity: item.quantity,
+      location: item.location || "",
       condition: item.condition
     });
 
@@ -1279,10 +1288,6 @@
     link.href = url;
     link.download = "nkocet-product-qr.png";
     link.click();
-  });
-
-  $("showScannedQrBtn").addEventListener("click", () => {
-    if (lastDisplayedScannedProduct) showQr(lastDisplayedScannedProduct);
   });
 
   async function handleScannedText(decodedText) {
@@ -1325,6 +1330,7 @@
       $("scanName").textContent = safeText(item.name);
       $("scanId").textContent = item.id;
       $("scanQuantity").textContent = safeText(item.quantity);
+      $("scanLocation").textContent = safeText(item.location || "Not specified");
       $("scanCondition").textContent = safeText(item.condition);
       $("scanPurchaseDate").textContent = safeText(item.purchaseDate);
       $("scanSeller").textContent = safeText(item.seller);
@@ -1788,7 +1794,7 @@
     const query = $("searchInput").value.trim().toLowerCase();
 
     const rows = inventory.filter(item => [
-      item.name, item.description, item.seller, item.condition,
+      item.name, item.location, item.description, item.seller, item.condition,
       item.purchaseDate, item.quantity
     ].some(value => String(value ?? "").toLowerCase().includes(query)));
 
@@ -1800,6 +1806,7 @@
     const columns = [
       ["Product Name", "name"],
       ["Quantity", "quantity"],
+      ["Product Location", "location"],
       ["Purchase Date", "purchaseDate"],
       ["Condition", "condition"],
       ["Product Description", "description"],
