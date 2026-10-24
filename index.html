@@ -294,17 +294,200 @@
       .stat strong { font-size: 24px; }
       .details-grid { grid-template-columns: 1fr; }
     }
+
+    /* Modern dashboard and slide-out navigation */
+    :root {
+      --bg: #f5f6fa;
+      --text: #14214d;
+      --muted: #66708c;
+      --border: #e2e5ee;
+      --navy: #14214d;
+      --soft-red: #fce9ec;
+    }
+    body { font-family: Inter, "Segoe UI", Arial, sans-serif; }
+    header {
+      position: sticky; top: 0; z-index: 30;
+      background: #fff; color: var(--navy);
+      border-top: 4px solid var(--red);
+      border-bottom: 1px solid var(--border);
+      padding: 13px clamp(14px, 3vw, 36px);
+      box-shadow: 0 5px 20px #18234b0a;
+    }
+    .brand { gap: 15px; }
+    .brand img { border: 1px solid var(--border); }
+    h1 { font-size: clamp(19px, 2.4vw, 27px); letter-spacing: -.4px; }
+    header p { color: var(--muted); opacity: 1; }
+    .menu-toggle {
+      display: inline-grid; place-items: center; width: 46px; height: 44px;
+      padding: 0; flex: 0 0 auto; background: #f2f4f9; color: var(--navy);
+      border: 1px solid var(--border); font-size: 25px; border-radius: 12px;
+    }
+    .header-brand-wrap { display:flex; align-items:center; gap:14px; }
+    main { width: min(1440px, 94%); margin: 28px auto 44px; }
+    .card, .stat {
+      border-radius: 20px; border-color: var(--border);
+      box-shadow: 0 10px 30px #18234b0b;
+    }
+    .card { padding: clamp(16px, 2vw, 26px); }
+    .stat { padding: 20px; }
+    .stat span { letter-spacing: .02em; }
+    .stat strong { color: var(--navy); }
+    button { transition: transform .16s ease, box-shadow .16s ease, background .16s ease; }
+    button:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 5px 14px #14214d16; }
+    .primary { background: var(--red); }
+    .secondary { background: #edf0f7; color: var(--navy); }
+    .yellow { background: #ffe17a; color: #302600; }
+    .dashboard-intro { margin: 8px 0 20px; }
+    .dashboard-intro h2 { font-size: clamp(24px, 3vw, 34px); margin-bottom: 7px; color: var(--navy); }
+    .feature-grid {
+      display:grid; grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:18px; margin: 0 0 24px;
+    }
+    .feature-card {
+      appearance:none; text-align:left; display:flex; flex-direction:column;
+      align-items:flex-start; min-height:180px; padding:24px;
+      border:1px solid var(--border); border-radius:22px; background:#fff;
+      color:var(--navy); box-shadow:0 10px 30px #18234b0b;
+    }
+    .feature-icon {
+      display:grid; place-items:center; width:54px; height:54px; border-radius:16px;
+      font-size:27px; margin-bottom:20px; background:#e8eefb;
+    }
+    .feature-card:nth-child(2) .feature-icon { background:#fce9ec; }
+    .feature-card:nth-child(3) .feature-icon { background:#fff3cd; }
+    .feature-card strong { font-size:20px; margin-bottom:8px; }
+    .feature-card small { color:var(--muted); font-size:13px; line-height:1.5; }
+    .feature-card .feature-arrow { margin-top:auto; padding-top:16px; font-size:13px; font-weight:700; }
+    .menu-overlay {
+      position:fixed; inset:0; background:#10193670; z-index:49;
+      opacity:0; pointer-events:none; transition:opacity .22s ease;
+    }
+    .side-menu {
+      position:fixed; inset:0 auto 0 0; width:min(360px,86vw); z-index:50;
+      background:#fff; box-shadow:12px 0 35px #10193624;
+      transform:translateX(-105%); transition:transform .24s ease;
+      display:flex; flex-direction:column; overflow-y:auto;
+    }
+    body.menu-open .side-menu { transform:translateX(0); }
+    body.menu-open .menu-overlay { opacity:1; pointer-events:auto; }
+    .menu-head { display:flex; align-items:center; justify-content:space-between; padding:22px; border-bottom:1px solid var(--border); }
+    .menu-head strong { font-size:19px; }
+    .menu-close { width:42px; height:42px; font-size:25px; padding:0; background:#f1f3f8; color:var(--navy); }
+    .menu-links { padding:12px; display:grid; gap:5px; }
+    .menu-links button { text-align:left; padding:14px 15px; background:transparent; color:var(--navy); font-size:15px; border-radius:11px; }
+    .menu-links button:hover { background:#f3f5fa; }
+    .menu-links button .nav-symbol { display:inline-block; width:30px; font-size:18px; }
+    .menu-caption { padding:14px 15px 4px; color:var(--muted); text-transform:uppercase; font-size:11px; font-weight:800; letter-spacing:.1em; }
+    .dashboard-section { scroll-margin-top:100px; }
+    .section-title-row { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+    #reader { max-width:560px; }
+    #qrOutput { width:fit-content; margin-left:auto; margin-right:auto; padding:14px; background:#fff; border-radius:12px; }
+    footer { background:#fff; border-top:1px solid var(--border); }
+    .site-footer { text-align:center; line-height:1.7; padding:20px 16px; color:var(--muted, #667085); }
+    .site-footer .credits { font-size:0.95rem; }
+    .site-footer .credits strong { color:var(--navy, #182653); }
+    @media(max-width:850px) {
+      .feature-grid { grid-template-columns:1fr; }
+      .feature-card { min-height:145px; }
+      .layout { grid-template-columns:1fr; }
+    }
+    @media(max-width:480px) {
+      .brand img { width:43px; height:43px; }
+      .header-actions { width:100%; }
+      .header-actions #userEmail { flex:1; }
+      main { width:94%; margin-top:18px; }
+      .feature-card { padding:20px; }
+    }
+
+
+    /* Sketch-inspired mobile-first scanner home and report sheet */
+    header {
+      position: relative;
+      min-height: 92px;
+      justify-content: center;
+      background: #fff;
+      color: #182653;
+      border-top: 4px solid var(--red);
+      border-bottom: 1px solid #e3e7ef;
+      padding: 14px 70px;
+    }
+    .header-brand-wrap { width: 100%; justify-content: center; }
+    .brand { justify-content: center; text-align: center; }
+    .brand img {
+      width: 58px; height: 58px; border-radius: 50%;
+      border: 1px solid #e3e7ef; padding: 5px;
+    }
+    h1 { font-size: clamp(19px, 3vw, 27px); margin: 0 0 3px; }
+    header p { color: #667085; }
+    .menu-toggle {
+      position: absolute; left: 18px; top: 50%; transform: translateY(-50%);
+      background: transparent; color: #182653; border: 1px solid #d7ddea;
+      border-radius: 8px; font-size: 28px; padding: 6px 12px; line-height: 1.1;
+    }
+    .header-actions { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); }
+    #userEmail { max-width: 180px; }
+    main { width: min(1000px, 94%); margin: 22px auto; }
+    #scannerSection {
+      max-width: 720px; margin: 18px auto 24px; padding: clamp(18px, 4vw, 30px);
+      text-align: center; border: 1px solid #dce1ea; border-radius: 18px;
+    }
+    #scannerHeading { font-size: 24px; color: #182653; margin-bottom: 8px; }
+    #scannerSection > .muted { max-width: 480px; margin: 0 auto 14px; }
+    #reader { width: min(100%, 410px); margin: 16px auto 10px; }
+    #reader video { border-radius: 12px; }
+    #scannedProductCard {
+      text-align: left; background: #f7f8fc; border: 1px solid #e1e6f0;
+      border-radius: 14px; padding: 18px; margin-top: 18px;
+    }
+    #scannedProductCard h2 { text-align: center; color: #182653; }
+    .details-grid { text-align: left; }
+    .detail-item { background: white; border-radius: 9px; border: 1px solid #e6e9f0; padding: 12px; }
+    .side-menu { background: #fff; color: #182653; }
+    .menu-head { background: #f1f3f8; color: #182653; }
+    .menu-links button { color: #182653; }
+    .menu-links button:hover { background: #f2f4f9; }
+    .menu-overlay { background: rgba(20, 30, 66, .48); }
+    #reportsSection { max-width: 900px; margin: 18px auto; border-radius: 18px; }
+    #reportsSection .section-title-row { align-items: center; }
+    #reportsSection .section-title-row h2 { color: #182653; }
+    #pcReportForm {
+      background: #f8f9fc; border: 1px solid #dfe4ee; border-radius: 14px;
+      padding: clamp(16px, 3vw, 24px); margin-top: 18px;
+    }
+    .report-meta-grid {
+      display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 16px;
+      padding-bottom: 14px; margin-bottom: 14px; border-bottom: 1px solid #e1e5ee;
+    }
+    .report-sheet-title { grid-column: 1 / -1; text-align: center; color: #182653; margin: 0 0 8px; }
+    .report-signature-row { max-width: 320px; margin: 18px 0 0 auto; }
+    @media (max-width: 620px) {
+      header { padding: 12px 56px; min-height: 80px; }
+      .brand { gap: 8px; }
+      .brand img { width: 42px; height: 42px; }
+      .brand p { display: none; }
+      .menu-toggle { left: 8px; padding: 5px 9px; font-size: 24px; }
+      .header-actions { position: static; transform: none; width: 100%; justify-content: center; }
+      .header-brand-wrap { flex-wrap: wrap; }
+      #userEmail { max-width: 100%; }
+      .report-meta-grid { grid-template-columns: 1fr; }
+      .report-signature-row { max-width: none; }
+      #reportsSection .section-title-row { align-items: flex-start; flex-direction: column; }
+    }
+
   </style>
 </head>
 
 <body>
 <header>
-  <div class="brand">
+  <div class="header-brand-wrap">
+    <button class="menu-toggle hidden" id="menuToggle" type="button" aria-label="Open navigation menu" aria-expanded="false">☰</button>
+    <div class="brand">
     <img src="nkocet-logo.png" alt="NKOCET logo"
          onerror="this.style.display='none'">
     <div>
       <h1>NKOCET Stock Inventory</h1>
       <p>College Stock Management System</p>
+    </div>
     </div>
   </div>
 
@@ -313,6 +496,23 @@
     <button class="yellow" id="logoutBtn">Sign Out</button>
   </div>
 </header>
+
+<div class="menu-overlay" id="menuOverlay" aria-hidden="true"></div>
+<aside class="side-menu" id="sideMenu" aria-label="Main navigation">
+  <div class="menu-head">
+    <strong>NKOCET Inventory</strong>
+    <button class="menu-close" id="menuClose" type="button" aria-label="Close navigation menu">×</button>
+  </div>
+  <div class="menu-links">
+    <button type="button" data-view="scanner"><span class="nav-symbol">▦</span>QR Scanner</button>
+    <button type="button" data-view="reports"><span class="nav-symbol">▤</span>PC Reports</button>
+    <button type="button" data-view="inventory"><span class="nav-symbol">▣</span>Inventory</button>
+    <button type="button" data-view="scans"><span class="nav-symbol">◷</span>Daily Scan Report</button>
+    <div class="menu-caption">Download data</div>
+    <button type="button" id="menuExportInventory"><span class="nav-symbol">⇩</span>Download Inventory CSV</button>
+    <button type="button" id="menuExportReports"><span class="nav-symbol">⇩</span>Download PC Reports CSV</button>
+  </div>
+</aside>
 
 <section id="loginSection" class="card login-box">
   <h2>Sign In</h2>
@@ -331,15 +531,77 @@
 </section>
 
 <main id="appSection" class="hidden">
-  <div class="stats">
+  <div id="dashboardTop" class="dashboard-intro hidden">
+    <h2>Inventory Dashboard</h2>
+    <p class="muted">Scan assets, report PC status, and manage college stock from one place.</p>
+  </div>
+
+  <div class="feature-grid hidden" aria-label="Main dashboard options">
+    <button type="button" class="feature-card" data-target="scannerHeading">
+      <span class="feature-icon">▦</span>
+      <strong>QR Scanner</strong>
+      <small>Scan a product QR code and instantly view its saved details.</small>
+      <span class="feature-arrow">Open scanner →</span>
+    </button>
+    <button type="button" class="feature-card" data-target="reportsSection">
+      <span class="feature-icon">▤</span>
+      <strong>PC Reports</strong>
+      <small>Submit and review active or inactive computer reports.</small>
+      <span class="feature-arrow">Open reports →</span>
+    </button>
+    <button type="button" class="feature-card" data-target="inventorySection">
+      <span class="feature-icon">▣</span>
+      <strong>Inventory</strong>
+      <small>Manage products, quantities, conditions, and product QR codes.</small>
+      <span class="feature-arrow">Open inventory →</span>
+    </button>
+  </div>
+
+  <div class="stats hidden">
     <div class="stat"><span>Product Types</span><strong id="totalProducts">0</strong></div>
     <div class="stat"><span>Total Quantity</span><strong id="totalQuantity">0</strong></div>
     <div class="stat"><span>Damaged Items</span><strong id="damagedCount">0</strong></div>
     <div class="stat"><span>Expired Items</span><strong id="expiredCount">0</strong></div>
   </div>
 
-  <div class="layout">
-    <section class="card">
+  <section class="card dashboard-section" id="scannerSection">
+<h2 id="scannerHeading">QR Code Scanner</h2>
+  <p class="muted">Camera access requires HTTPS or localhost. Allow camera permission when prompted.</p>
+
+  <button class="secondary" id="startScannerBtn" type="button">Start Scanner</button>
+  <button class="secondary" id="stopScannerBtn" type="button" disabled>Stop Scanner</button>
+
+  <div id="reader"></div>
+  <p id="scannerMessage" class="message" role="status"></p>
+
+  <section id="scannedProductCard" class="hidden">
+    <hr class="section-divider">
+    <h2>Scanned Product Details</h2>
+    <div class="details-grid">
+      <div class="detail-item"><span>Product Name</span><strong id="scanName"></strong></div>
+      <div class="detail-item"><span>Product ID</span><strong id="scanId"></strong></div>
+      <div class="detail-item"><span>Quantity</span><strong id="scanQuantity"></strong></div>
+      <div class="detail-item"><span>Condition</span><strong id="scanCondition"></strong></div>
+      <div class="detail-item"><span>Purchase Date</span><strong id="scanPurchaseDate"></strong></div>
+      <div class="detail-item"><span>Seller</span><strong id="scanSeller"></strong></div>
+      <div class="detail-item" style="grid-column:1/-1">
+        <span>Description</span><strong id="scanDescription"></strong>
+      </div>
+    </div>
+    <button class="secondary full" id="showScannedQrBtn" type="button">Show Product QR Code</button>
+  </section>
+
+  <section id="qrPanel" class="hidden">
+    <hr class="section-divider">
+    <h2>Product QR Code</h2>
+    <p id="qrProductLabel" class="muted"></p>
+    <div id="qrOutput"></div>
+    <button id="downloadQrBtn" type="button" class="secondary full">Download QR Code</button>
+  </section>
+  </section>
+
+  <div class="layout hidden" id="inventoryView">
+    <section class="card" id="productFormSection">
       <h2 id="formHeading">Add Product</h2>
 
       <form id="productForm">
@@ -372,44 +634,10 @@
 
       <p id="appMessage" class="message" role="status"></p>
 
-      <hr class="section-divider">
 
-      <h2>QR Code Scanner</h2>
-      <p class="muted">Camera access requires HTTPS or localhost. Allow camera permission when prompted.</p>
-
-      <button class="secondary" id="startScannerBtn" type="button">Start Scanner</button>
-      <button class="secondary" id="stopScannerBtn" type="button" disabled>Stop Scanner</button>
-
-      <div id="reader"></div>
-      <p id="scannerMessage" class="message" role="status"></p>
-
-      <section id="scannedProductCard" class="hidden">
-        <hr class="section-divider">
-        <h2>Scanned Product Details</h2>
-        <div class="details-grid">
-          <div class="detail-item"><span>Product Name</span><strong id="scanName"></strong></div>
-          <div class="detail-item"><span>Product ID</span><strong id="scanId"></strong></div>
-          <div class="detail-item"><span>Quantity</span><strong id="scanQuantity"></strong></div>
-          <div class="detail-item"><span>Condition</span><strong id="scanCondition"></strong></div>
-          <div class="detail-item"><span>Purchase Date</span><strong id="scanPurchaseDate"></strong></div>
-          <div class="detail-item"><span>Seller</span><strong id="scanSeller"></strong></div>
-          <div class="detail-item" style="grid-column:1/-1">
-            <span>Description</span><strong id="scanDescription"></strong>
-          </div>
-        </div>
-        <button class="secondary full" id="showScannedQrBtn" type="button">Show Product QR Code</button>
-      </section>
-
-      <section id="qrPanel" class="hidden">
-        <hr class="section-divider">
-        <h2>Product QR Code</h2>
-        <p id="qrProductLabel" class="muted"></p>
-        <div id="qrOutput"></div>
-        <button id="downloadQrBtn" type="button" class="secondary full">Download QR Code</button>
-      </section>
     </section>
 
-    <section class="card">
+    <section class="card dashboard-section" id="inventorySection">
       <h2>Inventory Records</h2>
       <div class="table-tools">
         <input id="searchInput" placeholder="Search name, seller, description, condition...">
@@ -435,7 +663,7 @@
   </div>
 
   <!-- DAILY SCAN REPORT -->
-  <section class="card">
+  <section class="card dashboard-section hidden" id="scanReportSection">
     <h2>Daily QR Scan Report</h2>
     <p class="muted">View recorded QR scans for today or select another date.</p>
 
@@ -466,11 +694,28 @@
   </section>
 
   <!-- PC STATUS REPORT -->
-  <section class="card">
-    <h2>PC Active / Inactive Report</h2>
-    <p class="muted">Submit a PC status report and update it when the status changes.</p>
+  <section class="card dashboard-section hidden" id="reportsSection">
+    <div class="section-title-row"><h2>NKOCET Inventory Scanner — PC Report</h2><button class="secondary" id="exportReportsBtn" type="button">Download Reports CSV</button></div>
+    <p class="muted">Record lab details and submit the reported PC information.</p>
 
     <form id="pcReportForm">
+      <div class="report-meta-grid">
+        <h3 class="report-sheet-title">PC Status Report</h3>
+        <div>
+          <label for="reportLabName">Name / Lab</label>
+          <input id="reportLabName" maxlength="120" placeholder="Example: Computer Lab 1">
+        </div>
+        <div>
+          <label for="reportDepartment">Number / Department</label>
+          <input id="reportDepartment" maxlength="120" placeholder="Example: CSE / Department">
+        </div>
+        <div>
+          <label for="reportDate">Date</label>
+          <input id="reportDate" type="date">
+        </div>
+      </div>
+
+      <h3 style="margin-top:0">Reported PC Info</h3>
       <label for="pcAssetId">PC Asset ID / Number *</label>
       <input id="pcAssetId" maxlength="80" required placeholder="Example: LAB1-PC01">
 
@@ -483,9 +728,14 @@
         <option value="Inactive">Inactive</option>
       </select>
 
-      <label for="pcRemarks">Remarks</label>
+      <label for="pcRemarks">Remarks / Reported PC Info</label>
       <textarea id="pcRemarks" maxlength="1000"
-        placeholder="Optional: issue, maintenance details, or other notes"></textarea>
+        placeholder="Describe PC condition, issue, or maintenance details"></textarea>
+
+      <div class="report-signature-row">
+        <label for="reportSignature">Sign / Reported By</label>
+        <input id="reportSignature" maxlength="120" placeholder="Name of person submitting report">
+      </div>
 
       <button class="primary full" id="savePcBtn" type="submit">Submit PC Report</button>
     </form>
@@ -518,7 +768,11 @@
   </section>
 </main>
 
-<footer>NKOCET Stock Inventory · Firebase-powered inventory management</footer>
+<footer class="site-footer">
+  <div>NKOCET Stock Inventory · Firebase-powered inventory management</div>
+  <div class="credits">Made by <strong>Prasanna Deshmukh and Team</strong></div>
+  <div class="credits">Under the guidance of <strong>Prof. Akhtar I. Nadaf Sir</strong></div>
+</footer>
 
 <script type="module">
   import { initializeApp } from
@@ -661,19 +915,36 @@
       $("loginSection").classList.remove("hidden");
       $("appSection").classList.add("hidden");
       $("headerActions").classList.add("hidden");
+      $("menuToggle").classList.add("hidden");
+      closeMenu();
+      $("scannerSection").classList.add("hidden");
+      $("inventoryView").classList.add("hidden");
+      $("scanReportSection").classList.add("hidden");
+      $("reportsSection").classList.add("hidden");
       return;
     }
 
     $("loginSection").classList.add("hidden");
     $("appSection").classList.remove("hidden");
     $("headerActions").classList.remove("hidden");
+    $("menuToggle").classList.remove("hidden");
     $("userEmail").textContent = user.email || "Signed in";
 
     $("scanDateFilter").value = localDateKey();
+    $("reportDate").value = localDateKey();
+    showAppView("scanner");
 
     listenForInventory();
     listenForScanLogs();
     listenForPCReports();
+
+    // Attempt to start the scanner after sign-in. Browsers may require camera permission
+    // or another user action; the visible Start Scanner button remains available as fallback.
+    setTimeout(() => {
+      if (currentUser && !$("appSection").classList.contains("hidden")) {
+        startScanner();
+      }
+    }, 700);
   });
 
   // ---------------- INVENTORY ----------------
@@ -1292,8 +1563,12 @@
         pcName,
         status,
         remarks,
+        labName: $("reportLabName").value.trim(),
+        department: $("reportDepartment").value.trim(),
+        reportDate: $("reportDate").value || localDateKey(),
+        signature: $("reportSignature").value.trim(),
         lastUpdated: serverTimestamp(),
-        reportedBy: currentUser.email || "Unknown",
+        reportedBy: $("reportSignature").value.trim() || currentUser.email || "Unknown",
         reportedByUid: currentUser.uid
       };
 
@@ -1313,6 +1588,99 @@
     } finally {
       $("savePcBtn").disabled = false;
     }
+  });
+
+  // ---------------- NAVIGATION ----------------
+  function closeMenu() {
+    document.body.classList.remove("menu-open");
+    $("menuToggle").setAttribute("aria-expanded", "false");
+  }
+
+  function openMenu() {
+    document.body.classList.add("menu-open");
+    $("menuToggle").setAttribute("aria-expanded", "true");
+  }
+
+  $("menuToggle").addEventListener("click", () => {
+    document.body.classList.contains("menu-open") ? closeMenu() : openMenu();
+  });
+  $("menuClose").addEventListener("click", closeMenu);
+  $("menuOverlay").addEventListener("click", closeMenu);
+
+  function showAppView(view) {
+    const scannerView = $("scannerSection");
+    const inventoryView = $("inventoryView");
+    const scanReportView = $("scanReportSection");
+    const reportsView = $("reportsSection");
+
+    scannerView.classList.toggle("hidden", view !== "scanner");
+    inventoryView.classList.toggle("hidden", view !== "inventory");
+    scanReportView.classList.toggle("hidden", view !== "scans");
+    reportsView.classList.toggle("hidden", view !== "reports");
+
+    if (view !== "scanner") stopScanner();
+    if (view === "scanner" && currentUser && !scannerRunning) {
+      startScanner();
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  document.querySelectorAll(".menu-links [data-view]").forEach(button => {
+    button.addEventListener("click", () => {
+      const view = button.dataset.view;
+      closeMenu();
+      showAppView(view);
+    });
+  });
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") closeMenu();
+  });
+
+  function downloadCsv(filename, columns, rows) {
+    if (!rows.length) {
+      showMessage("pcMessage", "No records available to export.", true);
+      return;
+    }
+    const csvCell = value => {
+      let text = String(value ?? "");
+      if (/^[\s]*[=+\-@]/.test(text)) text = "'" + text;
+      return '"' + text.replace(/"/g, '""') + '"';
+    };
+    const csv = [
+      columns.map(c => csvCell(c[0])).join(","),
+      ...rows.map(row => columns.map(c => csvCell(row[c[1]])).join(","))
+    ].join("\r\n");
+    const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  function exportPCReports() {
+    const columns = [
+      ["Lab Name", "labName"], ["Department", "department"], ["Report Date", "reportDate"],
+      ["Asset ID", "assetId"], ["PC / Location", "pcName"],
+      ["Status", "status"], ["Remarks", "remarks"], ["Signature", "signature"],
+      ["Reported By", "reportedBy"], ["Updated At", "updatedAtText"]
+    ];
+    const rows = pcReports.map(pc => ({
+      ...pc,
+      updatedAtText: pc.lastUpdated?.toDate ? pc.lastUpdated.toDate().toLocaleString() : ""
+    }));
+    downloadCsv("nkocet-pc-reports.csv", columns, rows);
+  }
+
+  $("exportReportsBtn").addEventListener("click", exportPCReports);
+  $("menuExportReports").addEventListener("click", () => { closeMenu(); exportPCReports(); });
+  $("menuExportInventory").addEventListener("click", () => {
+    closeMenu();
+    $("exportBtn").click();
   });
 
   // ---------------- CSV EXPORT ----------------
